@@ -1,0 +1,32 @@
+@import url('https://fonts.googleapis.com/css2?family=Merienda&display=swap');
+
+*{
+    margin: 0;
+}
+
+.layout-flex{
+    font-weight: normal;
+    display: flex;
+    justify-content: space-between;
+    padding: 0.5%;
+    background-color: #323232;
+}
+
+.enfase-fonte{
+    font-weight: bold;
+}
+
+.layout-flex-alinhamento-itens{
+    display: flex;
+    justify-content: flex-end;
+    position: relative;
+    top: 15px;
+}
+
+span{
+    margin-right: 20px;
+}
+
+.footer-pagina {
+    font-family: Silkscreen;
+}
