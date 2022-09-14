@@ -1,3 +1,9 @@
-.bg-color-red{
-  background-color: red;
+.tela{
+padding-left: 300px;
+padding-right: 300px;
+}
+.card-home{
+  display: flex;
+  flex-direction: row;
+  gap: 50px;
 }

@@ -8,7 +8,7 @@ function Home(name) {
         {
             id: 1,
             artista: 'Gustavo lima',
-            titulo: 'musica',
+            titulo: 'Bloqueado',
             visualizacoes: '1000'
         },
         {
@@ -32,15 +32,18 @@ function Home(name) {
     ];
     
   return (
-    <div>
+    <div className="tela">
         <h1 className="h1" style={{color: "#149f4a"}}>
             Olá, seja bem vindo
         </h1>
         <div className="container">
             <div className="row">
-                <div className="col-md-3">
+                <div className="card-home">
+                    <PlaylistCard titulo={"Título Da Música"} artista={"Artista"} image={"/images/thmb1.JPG"}/>
                     <PlaylistCard titulo={"Título Da Música"} artista={"Artista"} image={"/images/thmb2.webp"}/>
+                    <PlaylistCard titulo={"Título Da Música"} artista={"Artista"} image={"/images/thmb4.JPG"}/>
                 </div>
+                
             </div>  
         </div>
         <Tabela musicas={musicas} />

@@ -16,7 +16,7 @@ function Tabela(props) {
         <tbody>
           {props.musicas.map(item => {
             return (
-              <tr key={item.id}>
+              <tr key={item.key}>
                 <td>{item.titulo}</td>
                 <td>{item.artista}</td>
                 <td>{item.visualizacoes}</td>
