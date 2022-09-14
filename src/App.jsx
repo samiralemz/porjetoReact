@@ -3,14 +3,24 @@ import 'bootstrap/dist/js/bootstrap.bundle'
 import './App.css';
 import Cabecacalho from './componts/cabecalho';
 import Footer from './componts/Footer';
-import Home from './Pages/Home/Index';
+import Home from './Pages/Index';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import Faq from './Pages/faq';
+import Register from './Pages/register';
+
 
 function App() {
   return (
     <div className="App">
-      <Cabecacalho />
-      <Home />
-      <Footer />
+      <BrowserRouter>
+        <Cabecacalho />
+          <Routes>
+            <Route path="/" element={<Home />}/>
+            <Route path="/faq" element={<Faq />}/>
+            <Route path="/register" element={<Register />}/>
+          </Routes>
+        <Footer />
+      </BrowserRouter>
     </div>
   );
 }
