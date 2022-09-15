@@ -3,7 +3,7 @@ import React from "react";
 
 function Tabela(props) {
   return (
-    <div style={{ border: '1px' }} key={'Cabecalho'}>
+    <div style={{ border: '1px' }}>
       <table className="table table-sm table-hover caption-top">
         <caption className="fw-bold" style={{color: "#149f4a"}}>Top {props.musicas.length} mais ouvidas</caption>
         <thead>
@@ -16,7 +16,7 @@ function Tabela(props) {
         <tbody>
           {props.musicas.map(item => {
             return (
-              <tr key={item.key}>
+              <tr key={item.id}>
                 <td>{item.titulo}</td>
                 <td>{item.artista}</td>
                 <td>{item.visualizacoes}</td>

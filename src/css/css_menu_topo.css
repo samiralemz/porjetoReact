@@ -1,9 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Merienda&display=swap');
 
-*{
-    margin: 0;
-}
-
 .layout-flex{
     font-weight: normal;
     display: flex;
@@ -25,8 +21,4 @@
 
 span{
     margin-right: 20px;
-}
-
-.footer-pagina {
-    font-family: Silkscreen;
 }
