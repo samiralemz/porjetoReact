@@ -1,18 +1,3 @@
-
-@font-face {
-    font-family: font-spotify;
-    src: url(../fonts/CircularStd-Black.otf);
-}
-
-body {
-    height: 30vh;
-    font-family: font-spotify;
-    font-size: 18px;
-    font-weight: bold;
-    left: auto;
-    color: var(--dk-green);
-}
-
 .logo {
     width: 150px;
     height: auto;

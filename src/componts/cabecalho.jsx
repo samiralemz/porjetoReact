@@ -12,9 +12,9 @@ function Cabecacalho(props) {
         </div>
         <div className="layout-flex-alinhamento-itens text-uppercase">
             <span>playlist</span>
-            <span><Link to="/register" className="text-decoration-none" style={{color: "white"}}>registrar</Link></span>
+            <span><Link to="/register" className="text-decoration-none fw-bold" style={{color: "white"}}>registrar</Link></span>
             <span>fazer login</span>
-            <span><Link to="/faq" className="text-decoration-none" style={{color: "white"}}>FAQ</Link></span>
+            <span><Link to="/faq" className="text-decoration-none fw-bold" style={{color: "white"}}>FAQ</Link></span>
         </div>
     </div>
     );
