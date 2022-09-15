@@ -1,9 +1,115 @@
-.tela{
-padding-left: 300px;
-padding-right: 300px;
+.tela {
+  padding-left: 300px;
+  padding-right: 300px;
 }
-.card-home{
+
+.card-home {
   display: flex;
   flex-direction: row;
   gap: 50px;
+}
+
+/* .card-spotify {
+  height: 92px;
+  border-radius: 4px;
+  position: relative;
+  overflow: hidden;
+}
+
+.grid-cards {
+  display: grid;
+  row-gap: 50px;
+  /* row-gap: 50px; */
+/* }
+
+.card-faq {
+  height: 92px;
+  border-radius: 4px;
+  position: relative;
+  overflow: hidden;
+}
+
+.imagem-card {
+  transform: rotate(45deg);
+}
+
+.imagem-rotate {
+  height: 64px;
+  position: absolute;
+  top: 25px;
+  right: calc(100% - 64px + 19px);
+  left: calc(100% - 64px + 19px);
+  transform: rotate(25deg);
+}  */
+
+
+@font-face {
+  font-family: font-spotify;
+  src: url(../src/fonts/CircularStd-Black.otf);
+}
+.App{
+  font-family: font-spotify;
+}
+
+.input-search {
+  display: flex;
+  width: 100%;
+  height: 50px;
+}
+
+.grid-spotify {
+  /* padding-left: 600px; 
+   padding-right: 500px;  */
+  max-width: 628px;
+  margin: 0px auto;
+  padding: 32px 16px;
+
+}
+
+.card-content {
+  height: 92px;
+  border-radius: 4px;
+  position: relative;
+  overflow: hidden;
+  /* background-color: rgb(175, 40, 150); */
+}
+
+.card-title {
+  padding: 12px;
+  position: relative;
+  padding-inline-end: 56px;
+}
+
+.content-title {
+  font-size: 1.125rem;
+  line-height: 1.5rem;
+  text-transform: none;
+  letter-spacing: normal;
+}
+
+.card-image {
+  height: 64px;
+  position: absolute;
+  top: 25px;
+  box-shadow: rgb(0 0 0 / 20%) 0px 2px 4px 0px;
+  right: calc(100% - 64px + 19px);
+  left: calc(100% - 64px + 19px);
+  transform: rotate(25deg);
+}
+
+.card-spotify {
+  min-width: 33.3%;
+  text-decoration: none;
+  color: rgb(255, 255, 255);
+  border-radius: 4px;
+}
+
+.nav-bar li,
+.text-login > a {
+  color: var(--black);
+}
+
+.text-login{
+  color: #9DA6B8;
+  font-size: 25px;
 }
