@@ -1,22 +1,6 @@
 import { useState } from "react";
 
 
-function toggleAudio(stateAudioRunning, audioID) {
-  let [flagAudioRunning, setFlagAudioRunning] = stateAudioRunning;
-  let audio = document.querySelector(`audio[id='${audioID}']`);
-
-  if(!audio)
-    return;
-
-  if (flagAudioRunning){
-    audio.pause();
-    setFlagAudioRunning(false);
-  }else{
-    audio.play();
-    setFlagAudioRunning(true);
-  }
-}
-
 function formataAudioTime(tempoTotalSegundos) {
   const minutos = parseInt(tempoTotalSegundos / 60);
   const segundos = parseInt(tempoTotalSegundos % 60);
@@ -26,20 +10,35 @@ function formataAudioTime(tempoTotalSegundos) {
   return `${fmtMinutos}:${fmtSegundos}`;
 }
 
+
 function PlaylistItem(props) {
   const {id, titulo, artista, album, src} = props;
-  const stateAudioRunning = useState(false);
+  const [flagAudioRunning, setFlagAudioRunning] = useState(false);
   const [audioTime, setAudioTime] = useState("");
 
-  const [isAudioRunning, ] = stateAudioRunning;
+  function toggleAudio() {
+    let audio = document.querySelector(`audio[id='${id}']`);
+  
+    if(!audio)
+      return;
+  
+    if (flagAudioRunning){
+      audio.pause();
+      setFlagAudioRunning(false);
+    }else{
+      audio.play();
+      setFlagAudioRunning(true);
+    }
+  }
 
+  
   return (
     <li className="list-group-item" style={{maxWidth: "40rem", minWidth: "30rem"}}>
       <div className="d-flex align-items-start justify-content-between">
         <div className="d-flex">
           <span 
-          onClick={_ => toggleAudio(stateAudioRunning, id)}>
-            {!isAudioRunning ? (
+          onClick={_ => toggleAudio()}>
+            {!flagAudioRunning ? (
               <i className="bi bi-play-fill fs-3"></i>
             ):( 
               <i className="bi bi-pause-fill fs-3"></i>
