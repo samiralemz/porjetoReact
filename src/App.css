@@ -9,6 +9,22 @@
   gap: 50px;
 }
 
+.grid-card-playlist {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+}
+
+.item-grid-playlist {
+  height: "15rem";
+  width: "18rem";
+  cursor: pointer;
+  transition: transform .5s;
+}
+
+.item-grid-playlist:hover {
+  transform: scale(1.1);
+}
+
 /* .card-spotify {
   height: 92px;
   border-radius: 4px;
@@ -48,7 +64,7 @@
   src: url(../src/fonts/CircularStd-Black.otf);
 }
 
-.App{
+.App {
   font-family: font-spotify;
 }
 
@@ -106,11 +122,11 @@
 }
 
 .nav-bar li,
-.text-login > a {
+.text-login>a {
   color: var(--black);
 }
 
-.text-login{
+.text-login {
   color: #9DA6B8;
   font-size: 25px;
 }

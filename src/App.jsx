@@ -16,13 +16,13 @@ function App() {
     <div className="App">
       <BrowserRouter>
         <Cabecacalho />
-          <Routes>
-            <Route path="/" element={<Home />}/>
-            <Route path="/faq" element={<Faq />}/>
-            <Route path="/register" element={<Register />}/>
-
-            <Route path="/playlist/:id" element={<Playlist/>} />
-          </Routes>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/faq" element={<Faq />} />
+          <Route path="/register" element={<Register />} />
+          <Route path="/playlist" element={<Playlist />} />
+          <Route path="/playlist/:id" element={<Playlist />} />
+        </Routes>
         <Footer />
       </BrowserRouter>
     </div>
