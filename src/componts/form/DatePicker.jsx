@@ -18,6 +18,17 @@ function DatePicker(props) {
     handleDatePick();
   }, [dia, mes, ano])
 
+  useEffect(() => {
+    if(!props.date)
+      clearFields();
+  }, [props.date])
+
+  function clearFields() {
+    setDia("");
+    setMes("");
+    setAno("");
+  }
+
   function handleDatePick() {
     if(ano === "" && mes === "" && dia === "")
       return;

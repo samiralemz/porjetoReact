@@ -17,7 +17,7 @@ function ListaMusicas() {
             <li className="list-group-item d-flex" key={id}>
               <div className="ms-2 me-auto">
                   <div className="fw-bold">{titulo}</div>
-                  {artista}
+                  <small className="text-muted">{artista}</small>
               </div>
             </li>
           )
