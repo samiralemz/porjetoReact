@@ -1,5 +1,9 @@
-function GeneroOptions() {
-  return (
+function GeneroOptions(props) {    
+    function handleSelect(genero) {
+        props.onSelect(genero);
+    }
+
+    return (
     <>
       <div className="form-check-inline">
         <label className="form-check-label">
@@ -7,7 +11,10 @@ function GeneroOptions() {
                 className="form-check-input me-2" 
                 type="radio"
                 value="masculino" 
-                name="opt-genero"/>
+                name="opt-genero"
+                required
+                checked={props.genero === "masculino"}
+                onChange={e => {handleSelect(e.target.value)}}/>
             Masculino
         </label>
     </div>
@@ -18,7 +25,9 @@ function GeneroOptions() {
                 className="form-check-input me-2" 
                 type="radio"
                 value="feminino" 
-                name="opt-genero"/>
+                name="opt-genero"
+                checked={props.genero === "feminino"}
+                onChange={e => {handleSelect(e.target.value)}}/>
             Feminino
         </label>
     </div>
@@ -29,7 +38,9 @@ function GeneroOptions() {
                 className="form-check-input me-2" 
                 type="radio"
                 value="nao-binario" 
-                name="opt-genero"/>
+                name="opt-genero"
+                checked={props.genero === "nao-binario"}
+                onChange={e => {handleSelect(e.target.value)}}/>
             Não Binário
         </label>
     </div>

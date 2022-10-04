@@ -1,13 +1,30 @@
+import { useEffect } from "react";
 import { useState } from "react";
 
-function DatePicker() {
+function DatePicker(props) {
   const meses = ["janeiro", "fevereiro", "março", "abril", "maio", "junho", "julho", "agosto", "setembro", "outubro", "novembro", "dezembro"];
   const anoAtual = new Date().getFullYear();
   const anoMinimo = anoAtual - 200;
+  
+  const defaultAno = props.date ? props.date.getFullYear() : "";
+  const defaultMes = props.date ? props.date.getMonth()    : "";
+  const defaultDia = props.date ? props.date.getUTCDate()  : "";
 
-  const [dia, setDia] = useState("");
-  const [mes, setMes] = useState("");
-  const [ano, setAno] = useState("");
+  const [dia, setDia] = useState(defaultDia);
+  const [mes, setMes] = useState(defaultMes);
+  const [ano, setAno] = useState(defaultAno);
+  
+  useEffect(() => {
+    handleDatePick();
+  }, [dia, mes, ano])
+
+  function handleDatePick() {
+    if(ano === "" && mes === "" && dia === "")
+      return;
+    
+    const date = new Date(ano, mes, dia);
+    props.onDatePick(date);
+  }
 
   return (
     <div className="input-group">
@@ -25,7 +42,7 @@ function DatePicker() {
         required value={mes} onChange={e => setMes(e.target.value)}>
         <option value="">Mês</option>
         {meses.map((mes, index) => {
-          return <option value={mes} key={index}>{mes}</option>;
+          return <option value={index} key={index}>{mes}</option>;
         })}
       </select>
 

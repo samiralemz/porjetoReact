@@ -13,9 +13,11 @@ function cadastrarUsuario(usuario) {
 }
 
 function Register() {
-    const [email, setEmail] = useState("");
-    const [senha, setSenha] = useState("");
-    const [nome , setNome ] = useState("");
+    const [email , setEmail  ] = useState("");
+    const [senha , setSenha  ] = useState("");
+    const [nome  , setNome   ] = useState("");
+    const [genero, setGenero ] = useState("");
+    const [dataNascimento, setDataNascimento] = useState("");
 
     const [confirmarEmail, setConfirmarEmail] = useState("");
     const [erroConfirmarEmail, setErroConfirmarEmail] = useState("");
@@ -30,7 +32,9 @@ function Register() {
         const usuario = {
             email: email,
             nome: nome,
-            senha: senha
+            senha: senha,
+            nascimento: dataNascimento,
+            genero: genero
         }
         cadastrarUsuario(usuario)
         clearFields();
@@ -42,6 +46,16 @@ function Register() {
         setEmail("");
         setConfirmarEmail("");
         setSenha("");
+        setGenero("");
+        setDataNascimento("");
+    }
+
+    function handleDatePick(dataNascimento) {
+        setDataNascimento(dataNascimento);
+    }
+
+    function handleGeneroSelection(genero) {
+        setGenero(genero);
     }
 
     function isValidFields() {
@@ -103,11 +117,11 @@ function Register() {
                     
                     <div className="mb-3">
                         <small className="text-muted">Data de Nascimento</small>
-                        <DatePicker />
+                        <DatePicker onDatePick={handleDatePick} date={dataNascimento} />
                     </div>
 
                     <div className="mb-3">
-                        <GeneroOptions />
+                        <GeneroOptions onSelect={handleGeneroSelection} genero={genero}/>
                     </div>
                     {showMessageSuccess ? (
                         <div className="alert alert-success alert-dismissible" role="alert">
