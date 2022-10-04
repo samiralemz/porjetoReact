@@ -13,9 +13,9 @@ function cadastrarUsuario(usuario) {
 }
 
 function Register() {
-    const [email, setEmail] = useState("teste@teste.com");
-    const [senha, setSenha] = useState("123");
-    const [nome , setNome ] = useState("teste");
+    const [email, setEmail] = useState("");
+    const [senha, setSenha] = useState("");
+    const [nome , setNome ] = useState("");
 
     const [confirmarEmail, setConfirmarEmail] = useState("");
     const [erroConfirmarEmail, setErroConfirmarEmail] = useState("");
