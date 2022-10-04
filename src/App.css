@@ -14,6 +14,12 @@
   grid-template-columns: repeat(3, 1fr);
 }
 
+.grid-card-home {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+}
+
 .item-grid-playlist {
   height: "15rem";
   width: "18rem";

@@ -21,7 +21,7 @@ function App() {
           <Route path="/faq" element={<Faq />} />
           <Route path="/register" element={<Register />} />
           <Route path="/playlist" element={<Playlist />} />
-          <Route path="/playlist/:id" element={<Playlist />} />
+          <Route path="/playlist/:id_playlist" element={<Playlist />} />
         </Routes>
         <Footer />
       </BrowserRouter>

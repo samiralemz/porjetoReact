@@ -35,27 +35,27 @@ function Home(name) {
     let playlist = [
         {
             id: 1,
-            image_url: "/images/thmb4.jpg"
+            image_url: "/images/leeHi.jpg"
         },
         {
             id: 2,
-            image_url: "/images/thmb1.jpg",
+            image_url: "/images/olivia.jpg",
         },
         {
             id: 3,
-            image_url: "/images/thmb2.webp"
+            image_url: "/images/giveon.jpg"
         },
         {
             id: 4,
-            image_url: "/images/imageCard1.jpg"
+            image_url: "/images/theweeknd.jpg"
         },
         {
             id: 5,
-            image_url: "/images/imageCard2.jpg",
+            image_url: "/images/bruno.jpg",
         },
         {
             id: 6,
-            image_url: "/images/imageCard3.jpg"
+            image_url: "/images/rock.jpg"
         }
     ];
 
@@ -82,15 +82,16 @@ function Home(name) {
             </div>
             <div className="container">
                 <div>
-                    <div className="grid-card-playlist">
-                        <PlaylistCard titulo={"Título Da Música"} artista={"Artista"} image={"/images/thmb1.JPG"} />
-                        <PlaylistCard titulo={"Título Da Música"} artista={"Artista"} image={"/images/thmb2.webp"} />
-                        <PlaylistCard titulo={"Título Da Música"} artista={"Artista"} image={"/images/thmb4.JPG"} />
+                    <div className="grid-card-home">
+                        <PlaylistCard titulo={"Butter"} artista={"BTS"} image={"/images/bts_album.JPG"} />
+                        <PlaylistCard titulo={"AM"} artista={"Arctic Monkeys"} image={"/images/imageCard3.jpg"} />
+                        <PlaylistCard titulo={"Mais"} artista={"Os Arrais"} image={"/images/arrais.JPG"} />
                     </div>
 
                 </div>
+                <Tabela musicas={musicas} />  
             </div>
-            {/* <Tabela musicas={musicas} /> */}
+              
 
         </div>
 
