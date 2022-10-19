@@ -9,6 +9,8 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Faq from './Pages/faq';
 import Register from './Pages/register';
 import Playlist from './Pages/Playlist';
+import UserEdit from './Pages/UserEdit';
+import Login from './Pages/Login';
 
 
 function App() {
@@ -18,9 +20,11 @@ function App() {
         <Cabecacalho />
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/faq" element={<Faq />} />
-          <Route path="/register" element={<Register />} />
-          <Route path="/playlist" element={<Playlist />} />
+          <Route path="/faq"   element={<Faq />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/register"  element={<Register />} />
+          <Route path="/user/edit" element={<UserEdit />} />
+          <Route path="/playlist"  element={<Playlist />} />
           <Route path="/playlist/:id_playlist" element={<Playlist />} />
         </Routes>
         <Footer />

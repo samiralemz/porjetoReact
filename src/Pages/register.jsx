@@ -1,16 +1,9 @@
+import axios from "axios";
 import { useState } from "react";
 import DatePicker from "../componts/form/DatePicker";
 import GeneroOptions from "../componts/form/GeneroOptions";
 import ListaMusicas from "../componts/ListaMusicas";
 
-
-const usuarios = [];
-
-function cadastrarUsuario(usuario) {
-    console.log("Usuário Cadastrado!");
-    usuarios.push(usuario);
-    console.log(usuarios);
-}
 
 function Register() {
     const [email , setEmail  ] = useState("");
@@ -28,17 +21,23 @@ function Register() {
 
         if(!isValidFields())
             return;
-        
+    
         const usuario = {
-            email: email,
-            nome: nome,
-            senha: senha,
+            email,
+            nome,
+            senha,
             nascimento: dataNascimento,
-            genero: genero
-        }
-        cadastrarUsuario(usuario)
-        clearFields();
-        setShowMessageSuccess(true);
+            genero
+        };
+
+        axios.post("/users", usuario).then((response) => {
+            clearFields();
+            setShowMessageSuccess(true);
+            localStorage.setItem(
+                "user_logged_in",
+                JSON.stringify(usuario)
+            );
+        })
     }
     
     function clearFields() {
@@ -62,7 +61,7 @@ function Register() {
         const elementoConfirmarEmail = document.getElementById("input_confirmar_email");
         if(email !== confirmarEmail) {
             setErroConfirmarEmail("E-mail diferente");
-            elementoConfirmarEmail.classList.toggle("is-invalid");
+            elementoConfirmarEmail.classList.add("is-invalid");
             return false;
         }
         elementoConfirmarEmail.classList.remove("is-invalid");

@@ -28,7 +28,7 @@ function Faq() {
                     </div>
                 </div>
                 <div className="grid-cards">
-                    <div class="row gap-0 mt-4" style={{ height: "100px;" }}>
+                    <div className="row gap-0 mt-4" style={{ height: "100px" }}>
                         <CardFaq
                             cor={'#AF2896'}
                             image={'https://cdn.sanity.io/images/tsbk0zvv/production/a1f5c90620915aba2fc363330ecd1dbff17b7736-128x128.png?w=64&fit=max&auto=format'}
@@ -45,7 +45,7 @@ function Faq() {
                             topico={'Ajuda com o app'}
                         />
                     </div>
-                    <div class="row gap-0 mt-4" style={{ height: "100px;" }}>
+                    <div className="row gap-0 mt-4" style={{ height: "100px" }}>
                         <CardFaq
                             cor={'#006450'}
                             image={'https://cdn.sanity.io/images/tsbk0zvv/production/3e2fdd408d9175cbf6dc77fbd24fa0667aec5867-128x128.png?w=64&fit=max&auto=format'}

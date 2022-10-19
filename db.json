@@ -1,0 +1,12 @@
+{
+  "users": [
+    {
+      "email": "alisson@gmail.com",
+      "nome": "Alisson",
+      "senha": "123",
+      "nascimento": "2001-05-19T03:00:00.000Z",
+      "genero": "masculino",
+      "id": 1
+    }
+  ]
+}
