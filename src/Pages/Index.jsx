@@ -61,9 +61,6 @@ function Home(name) {
 
     return (
         <div className="tela">
-            <h1 className="h1" style={{ color: "#149f4a" }}>
-                Olá, seja bem vindo
-            </h1>
             <div className="container" style={{ "padding": "5rem", "display": "flex", "flexDirection": "column", "alignItems": "center" }}>
                 <h3 className="text-center">Grandes playlists pra melhorar seu dia!</h3>
                 <div>

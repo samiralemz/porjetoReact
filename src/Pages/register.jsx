@@ -75,7 +75,7 @@ function Register() {
         <div className="d-flex mt-5 container-fluid" style={{maxWidth: "60rem"}}>
             <div className="d-flex card p-3 flex-column container-fluid align-items-center">
                 <span className="fw-bold h5" style={{color: "#149f4a"}}>
-                    Registrar Novo Usuario
+                    Cadastrar
                 </span>
                 <form className="container-fluid" onSubmit={e => handleSubmit(e)}>
                     <input type="email" className="form-control mb-3"

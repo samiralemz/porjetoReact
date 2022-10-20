@@ -6,9 +6,9 @@ function DatePicker(props) {
   const anoAtual = new Date().getFullYear();
   const anoMinimo = anoAtual - 200;
   
-  const defaultAno = props.date ? props.date.getFullYear() : "";
-  const defaultMes = props.date ? props.date.getMonth()    : "";
-  const defaultDia = props.date ? props.date.getUTCDate()  : "";
+  const defaultAno = props.value ? props.value.getFullYear() : "";
+  const defaultMes = props.value ? props.value.getMonth()    : "";
+  const defaultDia = props.value ? props.value.getUTCDate()  : "";
 
   const [dia, setDia] = useState(defaultDia);
   const [mes, setMes] = useState(defaultMes);
@@ -19,9 +19,9 @@ function DatePicker(props) {
   }, [dia, mes, ano])
 
   useEffect(() => {
-    if(!props.date)
+    if(!props.value)
       clearFields();
-  }, [props.date])
+  }, [props.value])
 
   function clearFields() {
     setDia("");
