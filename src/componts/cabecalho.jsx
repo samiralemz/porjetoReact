@@ -24,7 +24,7 @@ function Cabecacalho(props) {
                 <img src="/images/logo.png" width="50px" className="img-fluid" />
             </Link>
         </div>
-        <div className="collapse navbar-collapse text-uppercase">
+        <div className="navbar text-uppercase">
             <ul className="navbar-nav">
             <li className="nav-item">
                 <Link className="nav-link text-decoration-none fw-bold" style={{color: "white"}}>playlist</Link>
