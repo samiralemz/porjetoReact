@@ -29,19 +29,22 @@ function Cabecacalho(props) {
             <li className="nav-item">
                 <Link className="nav-link text-decoration-none fw-bold" style={{color: "white"}}>playlist</Link>
             </li>
-            <li className="nav-item">
-                <Link to="/register" className="nav-link text-decoration-none fw-bold" style={{color: "white"}}>
-                    registrar
-                </Link>
-            </li>
+            
             {user ? 
                 <UserMenu user={user} onLogoutUser={handleLogoutUser}/>
                 :
-                <li className="nav-item">
-                    <Link to="/login" className="nav-link text-white">
-                        Login
-                    </Link>
-                </li>
+                <>
+                    <li className="nav-item">
+                        <Link to="/register" className="nav-link text-decoration-none fw-bold" style={{color: "white"}}>
+                            registrar
+                        </Link>
+                    </li>
+                    <li className="nav-item">
+                        <Link to="/login" className="nav-link text-white">
+                            Login
+                        </Link>
+                    </li>
+                </>
             }
             <li className="nav-item">
                 <Link to="/faq" className="nav-link text-decoration-none fw-bold" style={{color: "white"}}>

@@ -1,8 +1,8 @@
 {
   "users": [
     {
-      "email": "alisson@gmail.com",
       "nome": "Alisson",
+      "email": "alisson@gmail.com",
       "senha": "123",
       "nascimento": "2001-05-19T03:00:00.000Z",
       "genero": "masculino",

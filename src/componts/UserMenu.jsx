@@ -5,7 +5,7 @@ function UserMenu(props) {
   const { user, onLogoutUser } = props;
 
   return (
-    <li class="nav-item dropdown">
+    <li className="nav-item dropdown">
       <Link className="nav-link dropdown-toggle text-white"  role="button" data-bs-toggle="dropdown" aria-expanded="false">
         {user.nome}
       </Link>
