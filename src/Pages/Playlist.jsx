@@ -155,7 +155,7 @@ function Playlist() {
           {playlistSelecionada?.musicas?.map((item, index) => {
             return (
               <PlaylistItem
-                id={index}
+                id={item?.id}
                 src={`/music/${item?.musica_link}`}
                 titulo={item?.titulo_musica}
                 artista={playlistSelecionada?.artista}
