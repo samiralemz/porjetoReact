@@ -1,10 +1,11 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react'
+import { useNavigate } from 'react-router-dom';
 import DatePicker from '../componts/form/DatePicker';
 import GeneroOptions from '../componts/form/GeneroOptions';
 
-function UserEdit() {
-  const user = getUser();
+function UserEdit(props) {
+  const {user} = props
   const [email , setEmail  ] = useState(user.email);
   const [senha , setSenha  ] = useState(user.senha);
   const [nome  , setNome   ] = useState(user.nome);
@@ -23,6 +24,7 @@ function UserEdit() {
       genero,
       id: user.id
     }
+
     axios.put("/users/"+user.id, editedUser)
     .then(response => {
       setShowMessageSuccess("Dados Alterados com sucesso!");
@@ -33,11 +35,6 @@ function UserEdit() {
     });
   }
 
-  function getUser() {
-    const userLogged = JSON.parse(localStorage.getItem("user_logged_in"));
-    userLogged.nascimento = new Date(userLogged.nascimento);
-    return userLogged;
-  }
 
   function clearFields() {
     setNome("");

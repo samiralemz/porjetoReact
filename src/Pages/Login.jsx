@@ -3,10 +3,11 @@ import React from 'react'
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-function Login() {
+function Login(props) {
   const [email, setEmail] = useState("");
   const [senha, setSenha] = useState("");
   const [showErrorMessage, setShowErrorMessage] = useState("");
+  const {onUserLogin} = props;
   const navigate = useNavigate();
 
   function handleSubmit(e) {
@@ -24,12 +25,15 @@ function Login() {
         return;
       }
 
+      user.nascimento = new Date(user.nascimento);
+
       localStorage.setItem(
         "user_logged_in",
         JSON.stringify(user)
       );
-
-      navigate("/")
+      
+      onUserLogin(user);
+      navigate("/");
     })
     
   }

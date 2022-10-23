@@ -8,16 +8,7 @@ import UserMenu from "./UserMenu";
 
 
 function Cabecacalho(props) {
-    const [user, setUser] = useState();
-
-    useEffect(() => {
-        const userLogged = JSON.parse(localStorage.getItem("user_logged_in"));
-        setUser(userLogged);
-    }, [])
-
-    function handleLogoutUser() {
-        localStorage.removeItem("user_logged_in")
-    }
+    const { user, onUserLogout } = props;
 
     return (
         <nav className="navbar navbar-expand-lg bg-dark">
@@ -45,7 +36,7 @@ function Cabecacalho(props) {
                     </li>
 
                     {user ?
-                        <UserMenu user={user} onLogoutUser={handleLogoutUser} />
+                        <UserMenu user={user} onLogoutUser={onUserLogout} />
                         :
                         <>
                             <li className="nav-item">

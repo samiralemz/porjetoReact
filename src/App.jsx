@@ -5,25 +5,49 @@ import './App.css';
 import Cabecacalho from './componts/cabecalho';
 import Footer from './componts/Footer';
 import Home from './Pages/Index';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import Faq from './Pages/faq';
 import Register from './Pages/register';
 import Playlist from './Pages/Playlist';
 import UserEdit from './Pages/UserEdit';
 import Login from './Pages/Login';
+import { useState } from 'react';
+import { useEffect } from 'react';
 
 
 function App() {
+  const [user, setUser] = useState(null);
+
+  useEffect(() => {
+    const userLocal = JSON.parse(localStorage.getItem("user_logged_in"));
+    if(!userLocal) { return ; }
+
+    userLocal.nascimento = new Date(userLocal.nascimento);
+    setUser(userLocal);
+  }, [])
+
+  function handleUserLogin(user) {
+    setUser(user);
+  }
+
+  function handleUserLogout() {
+    setUser(null);
+    localStorage.removeItem("user_logged_in");
+  }
+
   return (
     <div className="App">
       <BrowserRouter>
-        <Cabecacalho />
+        <Cabecacalho user={user} onUserLogout={handleUserLogout}/>
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/faq"   element={<Faq />} />
-          <Route path="/login" element={<Login />} />
+          <Route path="/login" element={<Login onUserLogin={handleUserLogin} />} />
           <Route path="/register"  element={<Register />} />
-          <Route path="/user/edit" element={<UserEdit />} />
+          <Route path="/user/edit" element={
+            user ? <UserEdit user={user} /> 
+            : <Navigate to="/" replace={true}/>}
+            />
           <Route path="/playlist"  element={<Playlist />} />
           <Route path="/playlist/:id_playlist" element={<Playlist />} />
         </Routes>
