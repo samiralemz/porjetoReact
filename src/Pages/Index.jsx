@@ -1,6 +1,5 @@
 import "../css/pagina1.css"
 import "../css/css_menu_topo.css"
-import Tabela from "../componts/Tabela";
 import PlaylistCard from "../componts/PlaylistCard"
 import PlaylistGrid from "../componts/PlaylistGrid"
 import { useEffect } from "react";
