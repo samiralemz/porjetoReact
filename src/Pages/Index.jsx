@@ -3,61 +3,18 @@ import "../css/css_menu_topo.css"
 import Tabela from "../componts/Tabela";
 import PlaylistCard from "../componts/PlaylistCard"
 import PlaylistGrid from "../componts/PlaylistGrid"
+import { useEffect } from "react";
+import { useState } from "react";
+import axios from "axios";
 
 function Home(name) {
-    let musicas = [
-        {
-            id: 1,
-            artista: 'Gustavo lima',
-            titulo: 'Bloqueado',
-            visualizacoes: '1000'
-        },
-        {
-            id: 2,
-            artista: ' Gustavo lima',
-            titulo: 'musica',
-            visualizacoes: '1000',
-        },
-        {
-            id: 3,
-            artista: 'Michel telo',
-            titulo: 'musica',
-            visualizacoes: '1000'
-        },
-        {
-            id: 4,
-            artista: 'Pitty',
-            titulo: 'musica',
-            visualizacoes: '2'
-        }
-    ];
+    const [playlist, setPlaylist] = useState();
 
-    let playlist = [
-        {
-            id: 1,
-            image_url: "/images/leeHi.jpg"
-        },
-        {
-            id: 2,
-            image_url: "/images/olivia.jpg",
-        },
-        {
-            id: 3,
-            image_url: "/images/giveon.jpg"
-        },
-        {
-            id: 4,
-            image_url: "/images/theweeknd.jpg"
-        },
-        {
-            id: 5,
-            image_url: "/images/bruno.jpg",
-        },
-        {
-            id: 6,
-            image_url: "/images/rock.jpg"
-        }
-    ];
+    useEffect(() => {
+        axios.get("/playlist").then(response => {
+            setPlaylist(response.data)
+        })
+    }, [])
 
     return (
         <div className="tela">
@@ -65,12 +22,12 @@ function Home(name) {
                 <h3 className="text-center">Grandes playlists pra melhorar seu dia!</h3>
                 <div>
                     <div className="grid-card-playlist">
-                        {playlist.map((item, index) => {
+                        {playlist?.map((item) => {
                             return (
                                 <PlaylistGrid
-                                    key={index}
+                                    key={item.id}
                                     id={item.id}
-                                    imagem={item.image_url}
+                                    imagem={item.image}
                                 />
                             )
                         })}
@@ -86,7 +43,6 @@ function Home(name) {
                     </div>
 
                 </div>
-                <Tabela musicas={musicas} />  
             </div>
               
 
