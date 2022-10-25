@@ -1,3 +1,4 @@
+import axios from "axios";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import PlaylistItem from "../componts/playlist/PlaylistItem";
@@ -137,9 +138,12 @@ function Playlist() {
 
 
   useEffect(() => {
-    if (id_playlist !== undefined) {
-      getPlaylist(id_playlist)
-    }
+    axios.get("/playlist/"+id_playlist).then(response => {
+      const playlist = response.data;
+      if (playlist !== undefined) {
+        setPlaylistSelecionada(playlist)
+      }
+    })
 
   }, [id_playlist]);
 
@@ -147,7 +151,7 @@ function Playlist() {
     <div className="container">
       <div className="d-flex flex-wrap justify-content-center">
         <div className="d-flex flex-column ml-3 mt-5" style={{ maxWidth: "15rem" }}>
-          <img src={`/images/${playlistSelecionada?.image}`} style={{ maxWidth: "15rem" }} />
+          <img src={playlistSelecionada?.image} style={{ maxWidth: "15rem" }} />
           <span className="fs-4 text-wrap text-center">{playlistSelecionada?.titulo}</span>
         </div>
 
@@ -155,7 +159,8 @@ function Playlist() {
           {playlistSelecionada?.musicas?.map((item, index) => {
             return (
               <PlaylistItem
-                id={item?.id}
+                id={item.id}
+                key={item.id}
                 src={`/music/${item?.musica_link}`}
                 caminho={item?.musica_link}
                 titulo={item?.titulo_musica}
