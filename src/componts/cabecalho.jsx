@@ -8,16 +8,7 @@ import UserMenu from "./UserMenu";
 
 
 function Cabecacalho(props) {
-    const [user, setUser] = useState();
-
-    useEffect(() => {
-        const userLogged = JSON.parse(localStorage.getItem("user_logged_in"));
-        setUser(userLogged);
-    }, [])
-
-    function handleLogoutUser() {
-        localStorage.removeItem("user_logged_in")
-    }
+    const { user, onUserLogout } = props;
 
     return (
         <nav className="navbar navbar-expand-lg bg-dark">
@@ -40,14 +31,15 @@ function Cabecacalho(props) {
             </div>
             <div className="collapse navbar-collapse text-uppercase">
                 <ul className="navbar-nav">
-                    <li className="nav-item">
-                        <Link className="nav-link text-decoration-none fw-bold" style={{ color: "white" }}>playlist</Link>
-                    </li>
 
+                   {user !== null ? <li className="nav-item">
+                        <Link to={'/playlist'} className="nav-link text-decoration-none fw-bold" style={{ color: "white" }}>playlist</Link>
+                    </li> : null} 
                     {user ?
-                        <UserMenu user={user} onLogoutUser={handleLogoutUser} />
+                        <UserMenu user={user} onLogoutUser={onUserLogout} />
                         :
                         <>
+
                             <li className="nav-item">
                                 <Link to="/register" className="nav-link text-decoration-none fw-bold" style={{ color: "white" }}>
                                     registrar

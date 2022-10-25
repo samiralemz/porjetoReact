@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 
 function UserMenu(props) {
   const { user, onLogoutUser } = props;
-
+  console.log(user);
   return (
     <li className="nav-item dropdown">
       <Link className="nav-link dropdown-toggle text-white"  role="button" data-bs-toggle="dropdown" aria-expanded="false">

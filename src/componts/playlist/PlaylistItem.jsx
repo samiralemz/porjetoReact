@@ -1,5 +1,6 @@
+import axios from "axios";
 import { useState } from "react";
-import Dropdown from 'react-bootstrap/Dropdown';
+import { Button, Card, Modal } from "react-bootstrap";
 
 
 function formataAudioTime(tempoTotalSegundos) {
@@ -13,9 +14,15 @@ function formataAudioTime(tempoTotalSegundos) {
 
 
 function PlaylistItem(props) {
-  const { id, titulo, artista, album, src } = props;
+  const { id, titulo, artista, album, src, caminho, option, isEdit, handleDelete } = props;
   const [flagAudioRunning, setFlagAudioRunning] = useState(false);
   const [audioTime, setAudioTime] = useState("");
+  const [show, setShow] = useState(false);
+  const playlistUser = JSON.parse(localStorage.getItem("playlists"));
+  const [showErrorMessage, setShowErrorMessage] = useState("");
+  const [onSelect, setOnSelect] = useState();
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
 
   function toggleAudio() {
     let audio = document.querySelector(`audio[id='${id}']`);
@@ -32,9 +39,74 @@ function PlaylistItem(props) {
     }
   }
 
+  function handleSelect(playlistId) {
+    setOnSelect(playlistId);
+  }
 
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    const { data } = await axios.get(`/musicas?playlist_id=${onSelect}`);
+    // data.data
+    const isDuplicated = data?.filter((item) => {
+      return item.musica_id === id;
+    });
+
+    if (!isDuplicated.length > 0) {
+      const AdicionarMusica = {
+        "playlist_id": onSelect,
+        "musica_id": id,
+        "caminho_musica": caminho,
+        "titulo": titulo,
+        "artista": artista,
+        "album": album,
+      }
+      axios.post("/musicas", AdicionarMusica).then((response) => {
+        handleClose();
+      })
+    } else {
+      setShowErrorMessage("Musica já existente na playlist");
+    }
+
+  }
   return (
     <li className="list-group-item" style={{ maxWidth: "40rem", minWidth: "30rem" }}>
+      <Modal show={show} onHide={handleClose}>
+        <Modal.Header closeButton>
+          <Modal.Title>Selecione a Playlist</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          {playlistUser.map((item) => {
+            return (<Card className="mt-3">
+              <Card.Body className="d-flex justify-content-between">{item.titulo}  <div className="form-check-inline">
+                <input
+                  className="form-check-input me-2"
+                  type="radio"
+                  value={item.id}
+                  name="playlist"
+                  required
+                  // checked={true}
+                  onChange={e => { handleSelect(e.target.value) }} />
+
+              </div></Card.Body>
+            </Card>)
+          })}
+          {showErrorMessage ? (
+            <div className="alert alert-danger mt-3" role="alert">
+              {showErrorMessage}
+            </div>
+          ) : <></>
+          }
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={handleClose}>
+            Fechar
+          </Button>
+          <Button type="submit" variant="success" onClick={handleSubmit}>
+            Adicionar
+          </Button>
+        </Modal.Footer>
+      </Modal>
       <div className="d-flex align-items-start justify-content-between">
         <div className="d-flex">
           <span
@@ -53,18 +125,24 @@ function PlaylistItem(props) {
           </div>
         </div>
         <span className="fs-4">{audioTime}</span>
-
-        <Dropdown>
-          <Dropdown.Toggle variant="success" id="dropdown-basic">
+        {isEdit ? <div class="dropdown">
+          <button class="btn border-0" type="button" id="dropdownMenuButton2" data-bs-toggle="dropdown" aria-expanded="false">
             ...
-          </Dropdown.Toggle>
-
-          <Dropdown.Menu>
-            <Dropdown.Item onClick={() => console.log("adicionei a playlist o id: ",id )} href="#/action-1">Adicionar a Playlist</Dropdown.Item>
-            <Dropdown.Item href="#/action-2">Adicionar a Fila</Dropdown.Item>
-            <Dropdown.Item href="#/action-3">Curtir</Dropdown.Item>
-          </Dropdown.Menu>
-        </Dropdown>
+          </button>
+          <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton2">
+            <li><button class="dropdown-item" onClick={()=>handleDelete(id)}>Excluir</button></li>
+          </ul>
+        </div> : null}
+        {option ? <div class="dropdown">
+          <button class="btn border-0" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+            ...
+          </button>
+          <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+            <li><a class="dropdown-item" href="/#">Adicionar à fila</a></li>
+            <li><button class="dropdown-item" onClick={handleShow}>Adicionar à Playlist</button></li>
+            <li><a class="dropdown-item" href="/#">Curtir</a></li>
+          </ul>
+        </div> : null}
       </div>
       <audio
         id={id}

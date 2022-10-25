@@ -3,10 +3,11 @@ import React from 'react'
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-function Login() {
+function Login(props) {
   const [email, setEmail] = useState("");
   const [senha, setSenha] = useState("");
   const [showErrorMessage, setShowErrorMessage] = useState("");
+  const {onUserLogin} = props;
   const navigate = useNavigate();
 
   function handleSubmit(e) {
@@ -17,19 +18,33 @@ function Login() {
         setShowErrorMessage("Usuário não existe!")
         return;
       }
-
+      console.log("response =>",response);
       const user = response.data[0];
       if(senha !== user.senha) {
         setShowErrorMessage("Senha incorreta!");
         return;
       }
 
+      user.nascimento = new Date(user.nascimento);
+      
       localStorage.setItem(
         "user_logged_in",
         JSON.stringify(user)
       );
+      
+      const userId = user?.id;
 
-      navigate("/")
+      axios.get(`/playlistUser?usuario_id=${userId}`).then(response => {
+
+        localStorage.setItem(
+          "playlists",
+          JSON.stringify(response.data)
+        );
+
+      })
+      
+      onUserLogin(user);
+      navigate("/");
     })
     
   }
