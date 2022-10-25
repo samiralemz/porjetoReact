@@ -140,7 +140,7 @@
   ],
   "playlistUser": [
     {
-      "titulo": "a mimir",
+      "titulo": "teste",
       "usuario_id": 2,
       "id": 1
     }
@@ -148,30 +148,12 @@
   "musicas": [
     {
       "playlist_id": "1",
-      "musica_id": 13,
-      "caminho_musica": "toquinho-aquarela.mp3",
-      "titulo": "Aquarela - Toquinho",
-      "artista": "Variados",
-      "album": "Rock MPB",
-      "id": 2
-    },
-    {
-      "playlist_id": "1",
-      "musica_id": 9,
-      "caminho_musica": "TheWeeknd_saveyourtears.mp3",
-      "titulo": "Save Your Tears",
-      "artista": "Weeknd",
-      "album": "Sacrifice",
+      "musica_id": 5,
+      "caminho_musica": "giveon_heartbreakanniversary.mp3",
+      "titulo": "Heartbreak Anniversary",
+      "artista": "Giveon",
+      "album": "Heartbreak Anniversary",
       "id": 3
-    },
-    {
-      "playlist_id": "1",
-      "musica_id": 10,
-      "caminho_musica": "brunomars_TalkingToTheMoon.mp3",
-      "titulo": "Talking To The Moon",
-      "artista": "Bruno Mars",
-      "album": "Silk Sonic",
-      "id": 4
     }
   ]
 }

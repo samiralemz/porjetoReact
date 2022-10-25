@@ -78,13 +78,13 @@ function ListaPlaylist() {
           </Button>
         </Modal.Footer>
       </Modal>
-      {playlistUsuario.map((item) => {
+      {playlistUsuario !== null ? playlistUsuario.map((item) => {
         return (<Card className="mt-3">
           <Card.Body className="d-flex justify-content-between">{item.titulo} <Link to={`/playlistUsuario/${item.id}/`}>
             <Button variant="primary">Ver playlist</Button>
           </Link></Card.Body>
         </Card>)
-      })}
+      }) : null}
     </div>
   )
 }

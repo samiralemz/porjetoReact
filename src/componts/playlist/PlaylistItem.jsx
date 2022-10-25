@@ -14,7 +14,7 @@ function formataAudioTime(tempoTotalSegundos) {
 
 
 function PlaylistItem(props) {
-  const { id, titulo, artista, album, src, caminho, option, isEdit, handleDelete } = props;
+  const { id, titulo, artista, album, src, caminho, option, isEdit, handleDelete = null } = props;
   const [flagAudioRunning, setFlagAudioRunning] = useState(false);
   const [audioTime, setAudioTime] = useState("");
   const [show, setShow] = useState(false);
@@ -76,7 +76,7 @@ function PlaylistItem(props) {
           <Modal.Title>Selecione a Playlist</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          {playlistUser.map((item) => {
+          {playlistUser !== null ? playlistUser.map((item) => {
             return (<Card className="mt-3">
               <Card.Body className="d-flex justify-content-between">{item.titulo}  <div className="form-check-inline">
                 <input
@@ -90,7 +90,7 @@ function PlaylistItem(props) {
 
               </div></Card.Body>
             </Card>)
-          })}
+          }) : null}
           {showErrorMessage ? (
             <div className="alert alert-danger mt-3" role="alert">
               {showErrorMessage}
@@ -130,7 +130,7 @@ function PlaylistItem(props) {
             ...
           </button>
           <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton2">
-            <li><button class="dropdown-item" onClick={()=>handleDelete(id)}>Excluir</button></li>
+            <li><button class="dropdown-item" onClick={handleDelete !== null ? ()=>handleDelete(id) : null}>Excluir</button></li>
           </ul>
         </div> : null}
         {option ? <div class="dropdown">
