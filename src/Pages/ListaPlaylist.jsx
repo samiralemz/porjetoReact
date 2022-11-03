@@ -78,8 +78,8 @@ function ListaPlaylist() {
           </Button>
         </Modal.Footer>
       </Modal>
-      {playlistUsuario !== null ? playlistUsuario.map((item) => {
-        return (<Card className="mt-3">
+      {playlistUsuario !== null ? playlistUsuario.map((item, index) => {
+        return (<Card className="mt-3" key={index}>
           <Card.Body className="d-flex justify-content-between">{item.titulo} <Link to={`/playlistUsuario/${item.id}/`}>
             <Button variant="primary">Ver playlist</Button>
           </Link></Card.Body>

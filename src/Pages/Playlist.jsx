@@ -3,23 +3,23 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import PlaylistItem from "../componts/playlist/PlaylistItem";
 
-function Playlist() {
+function Playlist(props) {
+  const { user } = props;
   const [playlistSelecionada, setPlaylistSelecionada] = useState();
   let { id_playlist } = useParams();
 
-
-
   useEffect(() => {
     axios.get(`/playlist/${id_playlist}`).then(response => {
-      const playlist = response.data;
-      if (playlist !== undefined) {
-        setPlaylistSelecionada(playlist)
-      }
+      let playlist = response.data;
+
+      axios.get("/musicas", {params: {playlist_id: id_playlist}}).then(response => {
+        playlist.musicas = response.data;
+        setPlaylistSelecionada(playlist);
+      });
     })
 
   }, [id_playlist]);
 
-  console.log(playlistSelecionada);
   return (
     <div className="container">
       <div className="d-flex flex-wrap justify-content-center">
@@ -34,8 +34,8 @@ function Playlist() {
               <PlaylistItem
                 id={item.id}
                 key={item.id}
+                user={user}
                 src={`/music/${item?.musica_link}`}
-                caminho={item?.musica_link}
                 titulo={item?.titulo_musica}
                 artista={playlistSelecionada?.artista}
                 album={playlistSelecionada?.titulo_album}

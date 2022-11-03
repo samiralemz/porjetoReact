@@ -18,7 +18,6 @@ function Login(props) {
         setShowErrorMessage("Usuário não existe!")
         return;
       }
-      console.log("response =>",response);
       const user = response.data[0];
       if(senha !== user.senha) {
         setShowErrorMessage("Senha incorreta!");

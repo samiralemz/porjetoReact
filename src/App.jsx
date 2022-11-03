@@ -51,8 +51,8 @@ function App() {
             : <Navigate to="/" replace={true}/>}
             />
           <Route path="/playlist"  element={<ListaPlaylist />} />
-          <Route path="/playlistUsuario/:id_playlist"  element={<PlaylistUser />} />
-          <Route path="/playlist/:id_playlist" element={<Playlist />} />
+          <Route path="/playlistUsuario/:id_playlist" element={<PlaylistUser user={user} />} />
+          <Route path="/playlist/:id_playlist" element={<Playlist user={user} />} />
         </Routes>
         <Footer />
       </BrowserRouter>

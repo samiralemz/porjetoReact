@@ -1,4 +1,5 @@
 import axios from "axios";
+import { useRef } from "react";
 import { useState } from "react";
 import { Button, Card, Modal } from "react-bootstrap";
 
@@ -14,7 +15,7 @@ function formataAudioTime(tempoTotalSegundos) {
 
 
 function PlaylistItem(props) {
-  const { id, titulo, artista, album, src, caminho, option, isEdit, handleDelete = null } = props;
+  const { id, user, titulo, artista, album, src, option, isEdit, handleDelete = null } = props;
   const [flagAudioRunning, setFlagAudioRunning] = useState(false);
   const [audioTime, setAudioTime] = useState("");
   const [show, setShow] = useState(false);
@@ -23,10 +24,10 @@ function PlaylistItem(props) {
   const [onSelect, setOnSelect] = useState();
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
+  const audioElement = useRef();
 
   function toggleAudio() {
-    let audio = document.querySelector(`audio[id='${id}']`);
-
+    let audio = audioElement.current;
     if (!audio)
       return;
 
@@ -46,22 +47,16 @@ function PlaylistItem(props) {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const { data } = await axios.get(`/musicas?playlist_id=${onSelect}`);
-    // data.data
-    const isDuplicated = data?.filter((item) => {
-      return item.musica_id === id;
-    });
-
-    if (!isDuplicated.length > 0) {
-      const AdicionarMusica = {
-        "playlist_id": onSelect,
+    const duplicates = (await axios.get("/musicasPlaylistUser", {params: {musica_id: id, usuario_id: user.id}})).data;
+    
+    if (!duplicates.length > 0) {
+      const adicionarMusica = {
         "musica_id": id,
-        "caminho_musica": caminho,
-        "titulo": titulo,
-        "artista": artista,
-        "album": album,
+        "usuario_id": user.id,
+        "playlist_id": onSelect,
       }
-      axios.post("/musicas", AdicionarMusica).then((response) => {
+
+      axios.post("/musicasPlaylistUser", adicionarMusica).then((response) => {
         handleClose();
       })
     } else {
@@ -85,7 +80,6 @@ function PlaylistItem(props) {
                   value={item.id}
                   name="playlist"
                   required
-                  // checked={true}
                   onChange={e => { handleSelect(e.target.value) }} />
 
               </div></Card.Body>
@@ -146,6 +140,7 @@ function PlaylistItem(props) {
       </div>
       <audio
         id={id}
+        ref={audioElement}
         onCanPlay={e => setAudioTime(formataAudioTime(e.target.duration))}
         onTimeUpdate={
           e => setAudioTime(formataAudioTime(e.target.duration - e.target.currentTime))
