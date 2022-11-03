@@ -15,6 +15,7 @@ import { useState } from 'react';
 import { useEffect } from 'react';
 import ListaPlaylist from './Pages/ListaPlaylist';
 import PlaylistUser from './Pages/PlaylistUser';
+import Search from './componts/Search';
 
 
 function App() {
@@ -50,6 +51,8 @@ function App() {
             user ? <UserEdit user={user} /> 
             : <Navigate to="/" replace={true}/>}
             />
+
+          <Route path="/buscar/:busca" element={<Search user={user} />} />
           <Route path="/playlist"  element={<ListaPlaylist />} />
           <Route path="/playlistUsuario/:id_playlist" element={<PlaylistUser user={user} />} />
           <Route path="/playlist/:id_playlist" element={<Playlist user={user} />} />

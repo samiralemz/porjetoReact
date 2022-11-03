@@ -2,13 +2,20 @@ import React from "react";
 import { useState } from "react";
 import { useEffect } from "react";
 import { Button, Form, InputGroup } from "react-bootstrap";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import "../css/cabecalho.css"
 import UserMenu from "./UserMenu";
 
 
 function Cabecacalho(props) {
     const { user, onUserLogout } = props;
+    const [search, setSearch] = useState();
+    const navigate = useNavigate();
+
+    function handleSearch(e) {
+        e.preventDefault();
+        navigate("buscar/" + search);
+    }
 
     return (
         <nav className="navbar navbar-expand-lg bg-dark">
@@ -16,18 +23,21 @@ function Cabecacalho(props) {
                 <Link to="/" className="navbar-brand text-decoration-none">
                     <img src="/images/logo.png" width="50px" className="img-fluid" />
                 </Link>
-            </div>
-            <div className="container-fluid">
-                <InputGroup className="mb-1">
+
+                <form className="d-flex" onSubmit={e => handleSearch(e)}>
+                    <InputGroup className="mb-1">
                     <Form.Control
-                        placeholder="Busque por artista, ou música"
+                        placeholder="Busque por música"
                         aria-label="Recipient's username"
                         aria-describedby="basic-addon2"
-                    />
+                        value={search}
+                        onChange={e => setSearch(e.target.value)}
+                        />
                     <Button variant="outline-secondary" id="button-addon2">
                         Buscar
                     </Button>
-                </InputGroup>
+                    </InputGroup>
+                </form>
             </div>
             <div className="collapse navbar-collapse text-uppercase">
                 <ul className="navbar-nav">

@@ -102,6 +102,24 @@
       "usuario_id": 1,
       "playlist_id": "3",
       "id": 5
+    },
+    {
+      "musica_id": 1,
+      "usuario_id": 1,
+      "playlist_id": "3",
+      "id": 6
+    },
+    {
+      "musica_id": 5,
+      "usuario_id": 1,
+      "playlist_id": "3",
+      "id": 7
+    },
+    {
+      "musica_id": 2,
+      "usuario_id": 1,
+      "playlist_id": "2",
+      "id": 8
     }
   ],
   "musicas": [

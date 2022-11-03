@@ -47,8 +47,8 @@ function PlaylistItem(props) {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const duplicates = (await axios.get("/musicasPlaylistUser", {params: {musica_id: id, usuario_id: user.id}})).data;
-    
+    const duplicates = (await axios.get("/musicasPlaylistUser", {params: {musica_id: id, playlist_id: onSelect, usuario_id: user.id}})).data;
+
     if (!duplicates.length > 0) {
       const adicionarMusica = {
         "musica_id": id,
@@ -113,9 +113,12 @@ function PlaylistItem(props) {
           </span>
           <div className="d-flex flex-column">
             {titulo}
-            <span className="text-muted text-nowrap fs-6">
-              {artista} - {album}
-            </span>
+            {(artista !== undefined || album !== undefined) ? 
+              <span className="text-muted text-nowrap fs-6">
+                {artista} - {album}
+              </span>
+              :<></>
+            }
           </div>
         </div>
         <span className="fs-4">{audioTime}</span>
