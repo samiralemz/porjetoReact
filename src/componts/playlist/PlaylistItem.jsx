@@ -31,6 +31,8 @@ function PlaylistItem(props) {
   }, []);
 
   function loadPlaylists() {
+    if(!user) return;
+    
     axios.get("http://localhost:8080/usuario", {params: {email: user.email}})
     .then(response => {
       const playlists = response.data[0].lista_playlist;
