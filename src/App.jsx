@@ -32,6 +32,15 @@ function App() {
     setUser(user);
   }
 
+  function updateUser(user) {
+    setUser(user);
+
+    localStorage.setItem(
+      "user_logged_in",
+      JSON.stringify(user)
+    );
+  }
+
   function handleUserLogout() {
     setUser(null);
     localStorage.removeItem("user_logged_in");
@@ -47,7 +56,7 @@ function App() {
           <Route path="/login" element={<Login onUserLogin={handleUserLogin} />} />
           <Route path="/register"  element={<Register />} />
           <Route path="/user/edit" element={
-            user ? <UserEdit user={user} /> 
+            user ? <UserEdit user={user} updateUser={updateUser}/> 
             : <Navigate to="/" replace={true}/>}
             />
 

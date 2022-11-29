@@ -1,11 +1,10 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react'
-import { useNavigate } from 'react-router-dom';
 import DatePicker from '../componts/form/DatePicker';
 import GeneroOptions from '../componts/form/GeneroOptions';
 
 function UserEdit(props) {
-  const {user} = props
+  const {user, updateUser} = props
   const [email , setEmail  ] = useState(user.email);
   const [senha , setSenha  ] = useState(user.senha);
   const [nome  , setNome   ] = useState(user.nome);
@@ -14,13 +13,16 @@ function UserEdit(props) {
   const [dataNascimento, setDataNascimento] = useState(user.dtNascimento);
   const [showMessageSuccess, setShowMessageSuccess] = useState("");
 
-  function handleSubmit(e) {
+  async function handleSubmit(e) {
     e.preventDefault();
+
+    // Garante que usuário esta com as informações atualizadas
+    const userInfo = (await axios.get("http://localhost:8080/usuario", {params: {email: user.email}})).data[0];
 
     // Converte objeto Date em String no padrão yyyy-MM-dd
     let nascimento = dataNascimento.toISOString().split('T')[0];
     const generoChar = genero[0];
-    const editedUser = user
+    const editedUser = userInfo
     editedUser.nome = nome;
     editedUser.email = email;
     editedUser.senha = senha;
@@ -29,12 +31,8 @@ function UserEdit(props) {
 
     axios.put("http://localhost:8080/usuario/"+user.id, editedUser)
     .then(response => {
-      setShowMessageSuccess("Dados Alterados com sucesso!");
       editedUser.dtNascimento = dataNascimento;
-      localStorage.setItem(
-        "user_logged_in",
-        JSON.stringify(editedUser)
-      );
+      updateUser(editedUser)
     });
   }
 
