@@ -1,32 +1,35 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import PlaylistItemPromise from "../componts/playlist/PlaylistItemPromise";
+import PlaylistItem from "../componts/playlist/PlaylistItem";
 
 function PlaylistUser(props) {
-  let { id_playlist: id_playlist_user } = useParams();
+  let { id_playlist } = useParams();
   const [playlist, setPlaylist] = useState();
   const [musicas, setMusicas] = useState([]);
+  
+  useEffect(() => {
+    renderSongs();
+  }, []);
 
-  async function renderSongs() {
-    const playlistUser = (await axios.get("/playlistUser/" + id_playlist_user)).data;
-    setPlaylist(playlistUser);
+  function renderSongs() {
+    axios.get("http://localhost:8080/playlist/" + id_playlist)
+    .then(response => {
+      const playlistUser = response.data;
+      if (!playlistUser) return;
 
-    const musicas = (await axios.get("/musicasPlaylistUser", {params: {playlist_id: id_playlist_user}})).data;
-    setMusicas(musicas);
+      setPlaylist(playlistUser);
+      setMusicas(playlistUser.lista_musicas)
+    })
   }
 
   function handleDelete(musica_id) {
     if (musica_id !== null && musica_id !== undefined) {
-      axios.delete("/musicasPlaylistUser/" + musica_id);
+      axios.delete(`http://localhost:8080/${id_playlist}/musica/${musica_id}`);
       renderSongs();
     }
 
   }
-
-  useEffect(() => {
-    renderSongs();
-  }, []);
 
   return (
     <div className="container">
@@ -37,14 +40,17 @@ function PlaylistUser(props) {
 
         <ul className="list-group mx-5 mt-5">
 
-          {musicas.length > 0 ? musicas.map((musica, index) => {
+          {musicas && musicas.length > 0 ? musicas.map((musica, index) => {
             return (
-              <PlaylistItemPromise 
+              <PlaylistItem  
                 id={musica.id}
-                musica={musica}
+                src={`/music/${musica.link}`}
                 user={props.user}
-                key={musica.id}
-                handleDelete={() => handleDelete(musica.id)} />
+                titulo={musica.nome}
+                album={playlist.nomePlaylist}
+                option={false}
+                isEdit={true}
+                handleDelete={handleDelete} />
             );
           }) : <h3>Playlist Sem Música</h3>}
         </ul>

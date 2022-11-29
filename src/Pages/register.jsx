@@ -21,16 +21,19 @@ function Register() {
 
         if(!isValidFields())
             return;
-    
+        
+        let nascimento = dataNascimento.toISOString().split('T')[0];
+        const generoChar = genero[0];
         const usuario = {
             email,
             nome,
             senha,
-            nascimento: dataNascimento,
-            genero
+            dtNascimento: nascimento,
+            genero: generoChar
         };
 
-        axios.post("/users", usuario).then((response) => {
+        axios.post("http://localhost:8080/usuario", usuario).then((response) => {
+            usuario.id = response.data.id;
             clearFields();
             setShowMessageSuccess(true);
             localStorage.setItem(

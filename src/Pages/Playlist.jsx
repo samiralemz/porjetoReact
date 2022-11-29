@@ -9,13 +9,8 @@ function Playlist(props) {
   let { id_playlist } = useParams();
 
   useEffect(() => {
-    axios.get(`/playlist/${id_playlist}`).then(response => {
-      let playlist = response.data;
-
-      axios.get("/musicas", {params: {playlist_id: id_playlist}}).then(response => {
-        playlist.musicas = response.data;
-        setPlaylistSelecionada(playlist);
-      });
+    axios.get(`http://localhost:8080/playlist/${id_playlist}`).then(response => {
+      setPlaylistSelecionada(response.data);
     })
 
   }, [id_playlist]);
@@ -29,16 +24,15 @@ function Playlist(props) {
         </div>
 
         <ul className="list-group mx-5 mt-5">
-          {playlistSelecionada?.musicas?.map((item, index) => {
+          {playlistSelecionada?.lista_musicas?.map((item, index) => {
             return (
               <PlaylistItem
                 id={item.id}
                 key={item.id}
                 user={user}
-                src={`/music/${item?.musica_link}`}
-                titulo={item?.titulo_musica}
-                artista={playlistSelecionada?.artista}
-                album={playlistSelecionada?.titulo_album}
+                src={`/music/${item.link}`}
+                titulo={item.nome}
+                album={playlistSelecionada.nomePlaylist}
                 option={true}
                 isEdit={false}
               />

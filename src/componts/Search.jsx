@@ -9,7 +9,7 @@ export default function Search(props) {
   const [musicas, setMusicas] = useState();
 
   useEffect(() => {
-    axios.get("/musicas", {params: {titulo_musica_like: busca}}).then(response => {
+    axios.get("http://localhost:8080/musica/pesquisa", {params: {alias: busca}}).then(response => {
       setMusicas(response.data);
     })
   }, [busca])
@@ -26,8 +26,8 @@ export default function Search(props) {
               id={musica.id}
               key={musica.id}
               user={props.user}
-              src={`/music/${musica.musica_link}`}
-              titulo={musica.titulo_musica}
+              src={`/music/${musica.link}`}
+              titulo={musica.nome}
               option={true}
               isEdit={false}
               />

@@ -13,7 +13,7 @@ function GeneroOptions(props) {
                 value="masculino" 
                 name="opt-genero"
                 required
-                checked={props.genero === "masculino"}
+                checked={props.genero.toLowerCase()[0] === "m"}
                 onChange={e => {handleSelect(e.target.value)}}/>
             Masculino
         </label>
@@ -26,7 +26,7 @@ function GeneroOptions(props) {
                 type="radio"
                 value="feminino" 
                 name="opt-genero"
-                checked={props.genero === "feminino"}
+                checked={props.genero.toLowerCase()[0] === "f"}
                 onChange={e => {handleSelect(e.target.value)}}/>
             Feminino
         </label>
@@ -39,7 +39,7 @@ function GeneroOptions(props) {
                 type="radio"
                 value="nao-binario" 
                 name="opt-genero"
-                checked={props.genero === "nao-binario"}
+                checked={props.genero.toLowerCase()[0] === "n"}
                 onChange={e => {handleSelect(e.target.value)}}/>
             Não Binário
         </label>

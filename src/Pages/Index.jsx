@@ -10,8 +10,8 @@ function Home(name) {
     const [playlist, setPlaylist] = useState();
 
     useEffect(() => {
-        axios.get("/playlist").then(response => {
-            setPlaylist(response.data)
+        axios.get("http://localhost:8080/playlist").then(response => {
+            setPlaylist(response.data.filter(playlist => !playlist.isPrivate))
         })
     }, [])
 
@@ -26,7 +26,7 @@ function Home(name) {
                                 <PlaylistGrid
                                     key={item.id}
                                     id={item.id}
-                                    imagem={item.image}
+                                    imagem={"images/" + item.thumbnail}
                                 />
                             )
                         })}

@@ -1,5 +1,5 @@
 import axios from "axios";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Button, Card, Modal } from "react-bootstrap";
 import { Link } from "react-router-dom";
 
@@ -7,43 +7,55 @@ import { Link } from "react-router-dom";
 function ListaPlaylist() {
   const [show, setShow] = useState(false);
   const userLocal = JSON.parse(localStorage.getItem("user_logged_in"));
-  const playlistUser = JSON.parse(localStorage.getItem("playlists"));
-  const [playlistUsuario, setPlaylistUsuario] = useState(playlistUser);
-  const [newPlaylist, setNewPlaylist] = useState({
-    titulo: null,
-    usuario_id: userLocal.id
-  });
+  const [playlistUsuario, setPlaylistUsuario] = useState([]);
+  const [titulo, setTitulo] = useState("");
+
+  useEffect(() => {
+    loadPlaylists();
+  }, []);
+
+  function loadPlaylists() {
+    axios.get("http://localhost:8080/usuario", {params: {email: userLocal.email}})
+    .then(response => {
+      let playlists = response.data[0].lista_playlist;
+      if(!playlists) return;
+
+      let result = [];
+      for(let playlist of playlists) {
+        result.push({
+          titulo: playlist.nomePlaylist,
+          id: playlist.id
+        })
+      }
+      
+      setPlaylistUsuario(result);
+    })
+  }
 
 
   function handleSubmit(e) {
     e.preventDefault();
-    axios.post("/playlistUser", newPlaylist).then((response) => {
-      axios.get(`/playlistUser?usuario_id=${userLocal.id}`).then(response => {
-        localStorage.setItem(
-          "playlists",
-          JSON.stringify(response.data)
-        );
-        const playlistUser = JSON.parse(localStorage.getItem("playlists"));
-        setPlaylistUsuario(playlistUser);
-        setNewPlaylist({
-          ...newPlaylist,
-          titulo: null,
-          usuario_id: userLocal.id
-        });
-      })
+
+    axios.post("http://localhost:8080/playlist", {
+      nomePlaylist: titulo,
+      thumbnail: null,
+      isPrivate: true
+    }).then((response) => {
+      const {nomePlaylist, id} = response.data;
+
+      let newPlaylist = playlistUsuario;
+      newPlaylist.push({
+        titulo: nomePlaylist,
+        id
+      });
+      
+      axios.post(`http://localhost:8080/usuario/${userLocal.id}/playlist/${id}`);
+      setPlaylistUsuario(newPlaylist);
       handleClose();
     })
   }
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
-
-  const onchange = (e) => {
-    const { name, value } = e.target;
-    setNewPlaylist({
-      ...newPlaylist,
-      [name]: value,
-    });
-  };
 
   return (
     <div className="container">
@@ -64,9 +76,9 @@ function ListaPlaylist() {
               id="input_titulo"
               required
               placeholder="Titulo Playlist"
-              value={newPlaylist.titulo}
+              value={titulo}
               name={'titulo'}
-              onChange={onchange} />
+              onChange={e => setTitulo(e.target.value)} />
           </form>
         </Modal.Body>
         <Modal.Footer>
@@ -78,11 +90,14 @@ function ListaPlaylist() {
           </Button>
         </Modal.Footer>
       </Modal>
-      {playlistUsuario !== null ? playlistUsuario.map((item, index) => {
-        return (<Card className="mt-3" key={index}>
-          <Card.Body className="d-flex justify-content-between">{item.titulo} <Link to={`/playlistUsuario/${item.id}/`}>
+      {playlistUsuario !== null ? playlistUsuario.map((item) => {
+        return (<Card className="mt-3" key={item.id}>
+          <Card.Body className="d-flex justify-content-between">
+            {item.titulo}
+            <Link to={`/playlistUsuario/${item.id}/`}>
             <Button variant="primary">Ver playlist</Button>
-          </Link></Card.Body>
+            </Link>
+          </Card.Body>
         </Card>)
       }) : null}
     </div>

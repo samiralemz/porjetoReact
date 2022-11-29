@@ -17,7 +17,6 @@ import ListaPlaylist from './Pages/ListaPlaylist';
 import PlaylistUser from './Pages/PlaylistUser';
 import Search from './componts/Search';
 
-
 function App() {
   const [user, setUser] = useState(null);
 
@@ -25,7 +24,7 @@ function App() {
     const userLocal = JSON.parse(localStorage.getItem("user_logged_in"));
     if(!userLocal) { return ; }
 
-    userLocal.nascimento = new Date(userLocal.nascimento);
+    userLocal.dtNascimento = new Date(userLocal.dtNascimento);
     setUser(userLocal);
   }, [])
 

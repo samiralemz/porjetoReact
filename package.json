@@ -2,7 +2,6 @@
   "name": "projeto-spotify",
   "version": "0.1.0",
   "private": true,
-  "proxy": "http://localhost:3002",
   "dependencies": {
     "@popperjs/core": "^2.11.6",
     "@testing-library/jest-dom": "^5.16.5",
@@ -12,7 +11,7 @@
     "bootstrap": "^5.2.1",
     "bootstrap-icons": "^1.9.1",
     "g": "^2.0.1",
-    "json-server": "^0.17.0",
+    "json-server": "^0.17.1",
     "react": "^18.2.0",
     "react-bootstrap": "^2.5.0",
     "react-dom": "^18.2.0",

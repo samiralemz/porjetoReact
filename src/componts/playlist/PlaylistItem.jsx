@@ -1,5 +1,5 @@
 import axios from "axios";
-import { useRef } from "react";
+import { useEffect, useRef } from "react";
 import { useState } from "react";
 import { Button, Card, Modal } from "react-bootstrap";
 
@@ -19,12 +19,32 @@ function PlaylistItem(props) {
   const [flagAudioRunning, setFlagAudioRunning] = useState(false);
   const [audioTime, setAudioTime] = useState("");
   const [show, setShow] = useState(false);
-  const playlistUser = JSON.parse(localStorage.getItem("playlists"));
+  const [playlistUser, setPlaylistUser] = useState(null);
   const [showErrorMessage, setShowErrorMessage] = useState("");
   const [onSelect, setOnSelect] = useState();
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
   const audioElement = useRef();
+
+  useEffect(() => {
+    loadPlaylists();
+  }, []);
+
+  function loadPlaylists() {
+    axios.get("http://localhost:8080/usuario", {params: {email: user.email}})
+    .then(response => {
+      const playlists = response.data[0].lista_playlist;
+      let result = [];
+      for(let playlist of playlists) {
+        result.push({
+          titulo: playlist.nomePlaylist,
+          id: playlist.id
+        })
+      }
+      
+      setPlaylistUser(result);
+    })
+  }
 
   function toggleAudio() {
     let audio = audioElement.current;
@@ -40,28 +60,13 @@ function PlaylistItem(props) {
     }
   }
 
-  function handleSelect(playlistId) {
-    setOnSelect(playlistId);
-  }
-
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const duplicates = (await axios.get("/musicasPlaylistUser", {params: {musica_id: id, playlist_id: onSelect, usuario_id: user.id}})).data;
-
-    if (!duplicates.length > 0) {
-      const adicionarMusica = {
-        "musica_id": id,
-        "usuario_id": user.id,
-        "playlist_id": onSelect,
-      }
-
-      axios.post("/musicasPlaylistUser", adicionarMusica).then((response) => {
-        handleClose();
-      })
-    } else {
-      setShowErrorMessage("Musica já existente na playlist");
-    }
+    axios.post(`http://localhost:8080/playlist/${onSelect}/musica/${id}`)
+    .then((response) => {
+      handleClose();
+    })
 
   }
   return (
@@ -73,14 +78,14 @@ function PlaylistItem(props) {
         <Modal.Body>
           {playlistUser !== null ? playlistUser.map((item) => {
             return (<Card className="mt-3">
-              <Card.Body className="d-flex justify-content-between">{item.titulo}  <div className="form-check-inline">
+              <Card.Body className="d-flex justify-content-between" key={item.id}>{item.titulo}  <div className="form-check-inline">
                 <input
                   className="form-check-input me-2"
                   type="radio"
-                  value={item.id}
+                  value={item.nomePlaylist}
                   name="playlist"
                   required
-                  onChange={e => { handleSelect(e.target.value) }} />
+                  onChange={e => setOnSelect(item.id)} />
 
               </div></Card.Body>
             </Card>)

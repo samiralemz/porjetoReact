@@ -9,25 +9,28 @@ function UserEdit(props) {
   const [email , setEmail  ] = useState(user.email);
   const [senha , setSenha  ] = useState(user.senha);
   const [nome  , setNome   ] = useState(user.nome);
+
   const [genero, setGenero ] = useState(user.genero);
-  const [dataNascimento, setDataNascimento] = useState(user.nascimento);
+  const [dataNascimento, setDataNascimento] = useState(user.dtNascimento);
   const [showMessageSuccess, setShowMessageSuccess] = useState("");
 
   function handleSubmit(e) {
     e.preventDefault();
 
-    const editedUser = {
-      nome,
-      email,
-      senha,
-      nascimento: dataNascimento,
-      genero,
-      id: user.id
-    }
+    // Converte objeto Date em String no padrão yyyy-MM-dd
+    let nascimento = dataNascimento.toISOString().split('T')[0];
+    const generoChar = genero[0];
+    const editedUser = user
+    editedUser.nome = nome;
+    editedUser.email = email;
+    editedUser.senha = senha;
+    editedUser.dtNascimento = nascimento;
+    editedUser.genero = generoChar;
 
-    axios.put("/users/"+user.id, editedUser)
+    axios.put("http://localhost:8080/usuario/"+user.id, editedUser)
     .then(response => {
       setShowMessageSuccess("Dados Alterados com sucesso!");
+      editedUser.dtNascimento = dataNascimento;
       localStorage.setItem(
         "user_logged_in",
         JSON.stringify(editedUser)

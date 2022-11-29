@@ -13,7 +13,7 @@ function Login(props) {
   function handleSubmit(e) {
     e.preventDefault();
 
-    axios.get("/users", {params: { email }}).then(response => {
+    axios.get("http://localhost:8080/usuario", {params: { email }}).then(response => {
       if(response.data.length === 0){
         setShowErrorMessage("Usuário não existe!")
         return;
@@ -30,17 +30,6 @@ function Login(props) {
         "user_logged_in",
         JSON.stringify(user)
       );
-      
-      const userId = user?.id;
-
-      axios.get(`/playlistUser?usuario_id=${userId}`).then(response => {
-
-        localStorage.setItem(
-          "playlists",
-          JSON.stringify(response.data)
-        );
-
-      })
       
       onUserLogin(user);
       navigate("/");
